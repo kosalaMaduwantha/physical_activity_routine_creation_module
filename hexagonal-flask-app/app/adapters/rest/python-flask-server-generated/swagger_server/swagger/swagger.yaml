@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Diabtrek
+  description: serves backend api services for Diabtrek
+  version: 1.0.0
+servers:
+- url: http://localhost:5000/
+  description: local development server to serve
+tags:
+- name: phyact_pred
+paths:
+  /api/v1/physical_act/prediction:
+    post:
+      tags:
+      - phyact_pred
+      summary: predict the physical activities
+      description: Optional extended description in CommonMark or HTML.
+      operationId: api_v1_physical_act_prediction_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/predict_physical_act'
+        required: true
+      responses:
+        "201":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/predict_physical_act_response_body_201'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/predict_physical_act_response_body_400'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/predict_physical_act_response_body_500'
+      x-openapi-router-controller: swagger_server.controllers.phyact_pred_controller
+components:
+  schemas:
+    predict_physical_act:
+      required:
+      - age
+      - blood_pressure
+      - cholesterol
+      - cigerette_consumption
+      - current_physical_activity_status
+      - diabetes
+      - discomfirt_chest
+      - family_history_heart_disease
+      - gender
+      - glucose
+      - height
+      - weight
+      type: object
+      properties:
+        age:
+          type: integer
+          description: age of the user
+          example: 21
+        gender:
+          type: string
+          description: gender of the person
+          example: male
+        weight:
+          type: integer
+          description: weight of the person
+          example: 65
+        height:
+          type: integer
+          example: 43
+        blood_pressure:
+          type: integer
+          description: blood pressure of the person
+          example: 120
+        cholesterol:
+          type: integer
+          description: cholesterol of the person
+          example: 120
+        glucose:
+          type: integer
+          description: glucose of the person
+          example: 120
+        diabetes:
+          type: integer
+          description: diabetes of the person
+          example: 1
+        discomfirt_chest:
+          type: string
+          description: discomfort chest of the person
+          example: "yes"
+        current_physical_activity_status:
+          type: string
+          description: current physical activity status of the person
+          example: active
+        family_history_heart_disease:
+          type: string
+          description: family history heart disease of the person
+          example: "yes"
+        cigerette_consumption:
+          type: string
+          description: cigerette consumption of the person
+          example: daily
+    predict_physical_act_response_body_201:
+      required:
+      - prediction
+      - status
+      type: object
+      properties:
+        prediction:
+          type: array
+          description: prediction of the physical activity
+          example:
+          - walking
+          - running
+        status:
+          type: string
+          description: status of the prediction
+          example: prediction successfull
+      description: response body for the predict physical activity
+      example:
+        prediction:
+        - walking
+        - running
+        status: prediction successfull
+    predict_physical_act_response_body_400:
+      required:
+      - detail
+      - status
+      - title
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: type of the error
+          example: bad request
+        title:
+          type: string
+          description: title of the error
+          example: bad request
+        status:
+          type: integer
+          description: status of the error
+          example: 400
+        detail:
+          type: string
+          description: detail of the error
+          example: prediction failed
+    predict_physical_act_response_body_500:
+      required:
+      - detail
+      - status
+      - title
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: type of the error
+          example: internal server error
+        title:
+          type: string
+          description: title of the error
+          example: internal server error
+        status:
+          type: integer
+          description: status of the error
+          example: 500
+        detail:
+          type: string
+          description: detail of the error
+          example: internal server error
+
