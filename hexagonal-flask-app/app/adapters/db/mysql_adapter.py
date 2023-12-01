@@ -1,12 +1,12 @@
 import sys
-# sys.path.append('/home/kosala/git-rep/physical_activity_routine_creation_module/hexagonal-flask-app/')
+sys.path.append('/home/kosala/git-rep/physical_activity_routine_creation_module/hexagonal-flask-app/')
 from app.domain.spi.db_spi import DBSPI, MetaDataException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from conf_env import DB_STRING
-from models import PhyActPrediction
+from app.adapters.db.conf_env import DB_STRING
+from app.adapters.db.models import PhyActPrediction, User
 from sqlalchemy.exc import IntegrityError
-from db_table_creation import create_db_and_tables
+from app.adapters.db.db_table_creation import create_db_and_tables
 from app.domain.api.dtos.models import phyActData
 import logging
 
@@ -24,6 +24,21 @@ class MySQLAdapter(DBSPI):
         try:
             self._session.begin()
             self._session.add(data_model)
+            self._session.commit()
+        except IntegrityError as e:
+            self._session.rollback()
+            raise MetaDataException(f"Error while saving data: {e}")
+        logger.info("Data saved successfully")
+        
+        return True
+    
+    def enter_user_tempory(self, user_id: str, username: str, 
+                           password: str, email: str):
+        user_data_model = User(user_id=user_id, username=username, 
+                               password=password, email=email)
+        try:
+            self._session.begin()
+            self._session.add(user_data_model)
             self._session.commit()
         except IntegrityError as e:
             self._session.rollback()

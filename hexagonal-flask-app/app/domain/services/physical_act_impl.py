@@ -26,7 +26,8 @@ class PhysicalActImpl(PhysicalActApi):
         # update the class_ attribute of the data
         data.class_ = prediction[0]
         self._save_data_in_db(data)
-        return prediction
+        activity_list = self._select_activity_pool(prediction[0])
+        return activity_list
     
     def _preprocess_data(self, data: phyActData):
         
@@ -49,6 +50,21 @@ class PhysicalActImpl(PhysicalActApi):
         reshaped_data = numpy_array_data.reshape(1, 12)
         
         return reshaped_data
+    
+    def _select_activity_pool(self, class_: int) -> list:
+        activity_pools = {
+            1: ["Running", "Jogging", "Weight lifting", "Mountain Climbing", "Push ups", 
+                "Hit ups", "swimming", "Cardio", "sports"],
+            2: ["Running", "Jogging", "Weight lifting", "cycling moderate speed", "Yoga", 
+                "Hit ups", "swimming", "Cardio", "Tai Chi"],
+            3: ["Walking", "Jogging", "Cycling <10 mph leisure bicycling", "Yoga", 
+                "Tai Chi", "Climbing stairs", "Rowing machine, moderate", "dancing"],
+            4: ["Walking", "Slow Jogging", "Cycling <10 mph leisure bicycling", 
+                "Stationary cycling very light", "Stationary cycling, light", 
+                "Calisthenics light", "Yoga", "Tai Chi"]
+        }
+        
+        return activity_pools[class_]
     
     def _save_data_in_db(self, data):
         self.db_sp.save_prediction_data(data)

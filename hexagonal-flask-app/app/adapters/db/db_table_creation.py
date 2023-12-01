@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy_utils import database_exists, create_database, drop_database
-from conf_env import DB_STRING
-from models import init_db
+from app.adapters.db.conf_env import DB_STRING
+from app.adapters.db.models import init_db
 import logging
 
 logger = logging.getLogger(__name__)
