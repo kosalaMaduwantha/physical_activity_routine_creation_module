@@ -48,7 +48,7 @@ components:
       required:
       - age
       - blood_pressure
-      - cholesterol
+      - cholestrol
       - cigerette_consumption
       - current_physical_activity_status
       - diabetes
@@ -79,7 +79,7 @@ components:
           type: integer
           description: blood pressure of the person
           example: 120
-        cholesterol:
+        cholestrol:
           type: integer
           description: cholesterol of the person
           example: 120
