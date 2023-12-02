@@ -4,6 +4,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped
 from sqlalchemy.orm import relationship, mapped_column
 import json
 import logging
+from datetime import datetime 
 
 logger = logging.getLogger(__name__)
 FIELD_MAX_LENGTH = 255
@@ -37,6 +38,7 @@ class PhyActPrediction(Base):
     cigerette_consumption: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH))
     class_: Mapped[int] = mapped_column(Integer, nullable=True)
     uid: Mapped[int] = mapped_column(String(FIELD_MAX_LENGTH), ForeignKey("user.user_id"))
+    created_at: Mapped[str] = mapped_column(TIMESTAMP, nullable=False, default=datetime.now())
     
 def init_db(engine):
     try:
