@@ -22,5 +22,6 @@ FAMILY_HISTORY_HEART_DISEASE = {
 
 CIGERETTE_CONSUMPTION = {
     "no":0,
-    "yes":1,
+    "weekly":1,
+    "daily":2,
 }

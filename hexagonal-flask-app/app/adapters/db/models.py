@@ -11,6 +11,14 @@ FIELD_MAX_LENGTH = 255
 class Base(DeclarativeBase):
     pass
 
+class User(Base):
+    __tablename__ = "user"
+    
+    user_id: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH), primary_key=True)
+    username: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH), nullable=False)
+    password: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH), nullable=False)
+    email: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH), nullable=False)
+    
 class PhyActPrediction(Base):
     __tablename__ = "phy_act_prediction"
     
@@ -28,6 +36,7 @@ class PhyActPrediction(Base):
     family_history_heart_disease: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH))
     cigerette_consumption: Mapped[str] = mapped_column(String(FIELD_MAX_LENGTH))
     class_: Mapped[int] = mapped_column(Integer, nullable=True)
+    uid: Mapped[int] = mapped_column(String(FIELD_MAX_LENGTH), ForeignKey("user.user_id"))
     
 def init_db(engine):
     try:

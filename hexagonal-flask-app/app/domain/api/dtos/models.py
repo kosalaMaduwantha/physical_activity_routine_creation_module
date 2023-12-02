@@ -13,6 +13,7 @@ class phyActData(BaseModel):
     current_physical_activity_status: str
     family_history_heart_disease: str
     cigerette_consumption: str
+    uid: int = None
     class_: int = None
     
 
