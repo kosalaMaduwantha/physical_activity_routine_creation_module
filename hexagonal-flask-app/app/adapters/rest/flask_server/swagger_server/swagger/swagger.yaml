@@ -10,6 +10,42 @@ tags:
 - name: phyact_pred
 paths:
   /api/v1/physical_act/prediction:
+    get:
+      tags:
+      - phyact_pred
+      summary: get the predicted physical activities
+      description: Optional extended description in CommonMark or HTML.
+      operationId: api_v1_physical_act_prediction_get
+      parameters:
+      - name: user_id
+        in: query
+        description: user id of the user
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: int64
+      responses:
+        "200":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get_physical_act_response_body_201'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/physical_act_response_body_400'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/physical_act_response_body_500'
+      x-openapi-router-controller: swagger_server.controllers.phyact_pred_controller
     post:
       tags:
       - phyact_pred
@@ -29,40 +65,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/predict_physical_act_response_body_201'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/physical_act_response_body_400'
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/physical_act_response_body_500'
-      x-openapi-router-controller: swagger_server.controllers.phyact_pred_controller
-    get:
-      tags:
-      - phyact_pred
-      summary: get the predicted physical activities
-      description: Optional extended description in CommonMark or HTML.
-      operationId: api_v1_physical_act_prediction_get
-      parameters:
-        - name: user_id
-          in: query
-          description: user id of the user
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: A JSON array of user names
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/get_physical_act_response_body_201'
         "400":
           description: Bad request
           content:
@@ -219,18 +221,18 @@ components:
       properties:
         prediction:
           type: array
-          description: prediction of the physical activity
+          description: get predicted activities
           example:
           - walking
           - running
         status:
           type: string
-          description: status of the prediction
-          example: prediction successfull
-      description: response body for the predict physical activity
+          description: status of the get activities
+          example: get activities successfull
+      description: response body for the get physical activity
       example:
         prediction:
         - walking
         - running
-        status: prediction successfull
+        status: get activities successfull
 

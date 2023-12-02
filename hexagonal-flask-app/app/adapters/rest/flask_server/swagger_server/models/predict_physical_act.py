@@ -14,7 +14,7 @@ class PredictPhysicalAct(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, age: int=None, gender: str=None, weight: int=None, height: int=None, blood_pressure: int=None, cholesterol: int=None, glucose: int=None, diabetes: int=None, discomfirt_chest: str=None, current_physical_activity_status: str=None, family_history_heart_disease: str=None, cigerette_consumption: str=None):  # noqa: E501
+    def __init__(self, age: int=None, gender: str=None, weight: int=None, height: int=None, blood_pressure: int=None, cholestrol: int=None, glucose: int=None, diabetes: int=None, discomfirt_chest: str=None, current_physical_activity_status: str=None, family_history_heart_disease: str=None, cigerette_consumption: str=None):  # noqa: E501
         """PredictPhysicalAct - a model defined in Swagger
 
         :param age: The age of this PredictPhysicalAct.  # noqa: E501
@@ -27,8 +27,8 @@ class PredictPhysicalAct(Model):
         :type height: int
         :param blood_pressure: The blood_pressure of this PredictPhysicalAct.  # noqa: E501
         :type blood_pressure: int
-        :param cholesterol: The cholesterol of this PredictPhysicalAct.  # noqa: E501
-        :type cholesterol: int
+        :param cholestrol: The cholestrol of this PredictPhysicalAct.  # noqa: E501
+        :type cholestrol: int
         :param glucose: The glucose of this PredictPhysicalAct.  # noqa: E501
         :type glucose: int
         :param diabetes: The diabetes of this PredictPhysicalAct.  # noqa: E501
@@ -48,7 +48,7 @@ class PredictPhysicalAct(Model):
             'weight': int,
             'height': int,
             'blood_pressure': int,
-            'cholesterol': int,
+            'cholestrol': int,
             'glucose': int,
             'diabetes': int,
             'discomfirt_chest': str,
@@ -63,7 +63,7 @@ class PredictPhysicalAct(Model):
             'weight': 'weight',
             'height': 'height',
             'blood_pressure': 'blood_pressure',
-            'cholesterol': 'cholesterol',
+            'cholestrol': 'cholestrol',
             'glucose': 'glucose',
             'diabetes': 'diabetes',
             'discomfirt_chest': 'discomfirt_chest',
@@ -76,7 +76,7 @@ class PredictPhysicalAct(Model):
         self._weight = weight
         self._height = height
         self._blood_pressure = blood_pressure
-        self._cholesterol = cholesterol
+        self._cholestrol = cholestrol
         self._glucose = glucose
         self._diabetes = diabetes
         self._discomfirt_chest = discomfirt_chest
@@ -219,29 +219,29 @@ class PredictPhysicalAct(Model):
         self._blood_pressure = blood_pressure
 
     @property
-    def cholesterol(self) -> int:
-        """Gets the cholesterol of this PredictPhysicalAct.
+    def cholestrol(self) -> int:
+        """Gets the cholestrol of this PredictPhysicalAct.
 
         cholesterol of the person  # noqa: E501
 
-        :return: The cholesterol of this PredictPhysicalAct.
+        :return: The cholestrol of this PredictPhysicalAct.
         :rtype: int
         """
-        return self._cholesterol
+        return self._cholestrol
 
-    @cholesterol.setter
-    def cholesterol(self, cholesterol: int):
-        """Sets the cholesterol of this PredictPhysicalAct.
+    @cholestrol.setter
+    def cholestrol(self, cholestrol: int):
+        """Sets the cholestrol of this PredictPhysicalAct.
 
         cholesterol of the person  # noqa: E501
 
-        :param cholesterol: The cholesterol of this PredictPhysicalAct.
-        :type cholesterol: int
+        :param cholestrol: The cholestrol of this PredictPhysicalAct.
+        :type cholestrol: int
         """
-        if cholesterol is None:
-            raise ValueError("Invalid value for `cholesterol`, must not be `None`")  # noqa: E501
+        if cholestrol is None:
+            raise ValueError("Invalid value for `cholestrol`, must not be `None`")  # noqa: E501
 
-        self._cholesterol = cholesterol
+        self._cholestrol = cholestrol
 
     @property
     def glucose(self) -> int:

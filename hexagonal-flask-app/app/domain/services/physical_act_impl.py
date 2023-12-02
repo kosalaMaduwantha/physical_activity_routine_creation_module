@@ -4,6 +4,7 @@ sys.path.append('/home/kosala/git-rep/physical_activity_routine_creation_module/
 import os
 import pickle
 import numpy as np
+from datetime import datetime
 from app.domain.api.physical_act_api import PhysicalActApi
 from app.domain.api.dtos.models import phyActData
 from app.domain.services.encoder import GENDER, DISCOMFIRT_CHEST, \
@@ -27,6 +28,18 @@ class PhysicalActImpl(PhysicalActApi):
         data.class_ = prediction[0]
         self._save_data_in_db(data)
         activity_list = self._select_activity_pool(prediction[0])
+        return activity_list
+    
+    def get_physical_activities(self, user_id: str) -> list:
+        data = self._get_prediction_data(user_id)
+        
+        max_date = datetime.min
+        for row in data:
+            if row.created_at > max_date:
+                max_date = row.created_at
+                data_latest = row
+                
+        activity_list = self._select_activity_pool(data_latest.class_)
         return activity_list
     
     def _preprocess_data(self, data: phyActData):
@@ -68,6 +81,9 @@ class PhysicalActImpl(PhysicalActApi):
     
     def _save_data_in_db(self, data):
         self.db_sp.save_prediction_data(data)
+        
+    def _get_prediction_data(self, user_id: str):
+        return self.db_sp.get_prediction_data(user_id)
     
 if __name__ == "__main__":
     
