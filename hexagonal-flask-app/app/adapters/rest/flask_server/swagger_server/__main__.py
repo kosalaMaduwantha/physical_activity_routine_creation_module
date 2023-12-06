@@ -9,7 +9,6 @@ from swagger_server import encoder
 
 
 def main():
-    drop_db()
     create_db_and_tables()
     # temporily enter user data
     data_base_adapter = MySQLAdapter()
