@@ -16,6 +16,11 @@ class phyActData(BaseModel):
     uid: int = None
     class_: int = None
     
-
+class Activity(BaseModel):
+    name: str
+    calories: int
     
-# 21,female,45.00,175,60,242,109,0,no,inactive,no,no,2,
+class RoutineRecData(BaseModel):
+    activities: list[Activity]
+    target_calories: int
+    no_hours: int
