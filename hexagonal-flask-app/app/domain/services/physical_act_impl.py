@@ -12,7 +12,7 @@ from app.domain.services.encoder import GENDER, DISCOMFIRT_CHEST, \
 from app.domain.spi.db_spi import DBSPI
 from app.adapters.db.mysql_adapter import MySQLAdapter
 from app.domain.services.Optimizer import Optimizer
-ROOT_DIR = "/home/kosala/git-rep/physical_activity_routine_creation_module/hexagonal-flask-app/"
+ROOT_DIR = "/home/kosala/git-repositories/physical_activity_routine_creation_module/hexagonal-flask-app/"
 
 class PhysicalActImpl(PhysicalActApi):
     
