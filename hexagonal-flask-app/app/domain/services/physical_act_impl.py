@@ -6,16 +6,18 @@ import pickle
 import numpy as np
 from datetime import datetime
 from app.domain.api.physical_act_api import PhysicalActApi
-from app.domain.api.dtos.models import phyActData
+from app.domain.api.dtos.models import phyActData, RoutineRecData
 from app.domain.services.encoder import GENDER, DISCOMFIRT_CHEST, \
     CURRENT_PHYSICAL_ACTIVITY_STATUS, FAMILY_HISTORY_HEART_DISEASE, CIGERETTE_CONSUMPTION
 from app.domain.spi.db_spi import DBSPI
 from app.adapters.db.mysql_adapter import MySQLAdapter
-ROOT_DIR = "/home/kosala/git-rep/physical_activity_routine_creation_module/hexagonal-flask-app/"
+from app.domain.services.Optimizer import Optimizer
+ROOT_DIR = "/home/kosala/git-repositories/physical_activity_routine_creation_module/hexagonal-flask-app/"
 
 class PhysicalActImpl(PhysicalActApi):
     
     def __init__(self, db_sp: DBSPI=None):
+        self.optimizer = Optimizer()
         self.db_sp = db_sp
         model_path = os.path.join(ROOT_DIR, "ML_models", "model.pkl")
         self.ml_model = pickle.load(open(model_path, "rb"))
@@ -41,6 +43,9 @@ class PhysicalActImpl(PhysicalActApi):
                 
         activity_list = self._select_activity_pool(data_latest.class_)
         return activity_list
+    
+    def create_routine(self, user_id: str, data: RoutineRecData):
+        pass
     
     def _preprocess_data(self, data: phyActData):
         
