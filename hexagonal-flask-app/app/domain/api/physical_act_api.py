@@ -12,5 +12,5 @@ class PhysicalActApi(ABC):
         pass
     
     @abstractmethod
-    def create_routine(self, user_id: str, data: RoutineRecData):
+    def create_routine_day(self, user_id: str, data: RoutineRecData):
         pass

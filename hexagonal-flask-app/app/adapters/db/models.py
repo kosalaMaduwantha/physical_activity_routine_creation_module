@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, ForeignKey, UniqueConstraint
+from sqlalchemy import String, Integer, ForeignKey, UniqueConstraint, Float, Text
 from sqlalchemy.dialects.mysql import TIMESTAMP
 from sqlalchemy.orm import DeclarativeBase, Mapped
 from sqlalchemy.orm import relationship, mapped_column
@@ -40,6 +40,40 @@ class PhyActPrediction(Base):
     uid: Mapped[int] = mapped_column(String(FIELD_MAX_LENGTH), ForeignKey("user.user_id"))
     created_at: Mapped[str] = mapped_column(TIMESTAMP, nullable=False, default=datetime.now())
     
+class Week(Base):
+    __tablename__ = "week"
+    
+    week_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    week_no: Mapped[int] = mapped_column(Integer, nullable=True)
+    month_of: Mapped[int] = mapped_column(Integer, nullable=True)
+    year_of: Mapped[int] = mapped_column(Integer, nullable=True)
+    
+class Day(Base):
+    __tablename__ = "day"
+    
+    day_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    day_no: Mapped[int] = mapped_column(Integer, nullable=True)
+    week_no: Mapped[int] = mapped_column(Integer, ForeignKey("week.week_id"), nullable=True)
+
+class ExerciseDataset(Base):
+    __tablename__ = "exercise_dataset"
+    
+    activity: Mapped[str] = mapped_column(String(255), primary_key=True)  # Changed from Text to String(255)
+    weight_130: Mapped[int] = mapped_column("130 lb", Integer, nullable=True)
+    weight_155: Mapped[int] = mapped_column("155 lb", Integer, nullable=True)
+    weight_180: Mapped[int] = mapped_column("180 lb", Integer, nullable=True)
+    weight_205: Mapped[int] = mapped_column("205 lb", Integer, nullable=True)
+    calories_per_kg: Mapped[float] = mapped_column("Calories per kg", Float, nullable=True)
+
+class Routine(Base):
+    __tablename__ = "routine"
+    
+    routine_act_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    activity: Mapped[str] = mapped_column(String(100), nullable=True)
+    no_min: Mapped[int] = mapped_column(Integer, nullable=True)
+    day_no: Mapped[int] = mapped_column(Integer, nullable=True)
+    cus: Mapped[int] = mapped_column(Integer, nullable=True)
+
 def init_db(engine):
     try:
         Base.metadata.create_all(engine)

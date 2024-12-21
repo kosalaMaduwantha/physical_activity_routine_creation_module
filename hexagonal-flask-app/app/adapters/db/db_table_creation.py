@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/home/kosala/git-repos/physical_activity_routine_creation_module/hexagonal-flask-app/')
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy_utils import database_exists, create_database, drop_database
@@ -33,3 +35,7 @@ def drop_db():
         logger.error("Error while dropping database")
         logger.error(e)
         raise e
+    
+if __name__ == "__main__":
+    create_db_and_tables()
+    # drop_db()

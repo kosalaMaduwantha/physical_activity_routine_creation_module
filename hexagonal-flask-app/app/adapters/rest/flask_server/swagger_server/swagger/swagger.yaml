@@ -8,6 +8,7 @@ servers:
   description: local development server to serve
 tags:
 - name: phyact_pred
+- name: phyact_routine
 paths:
   /api/v1/physical_act/prediction:
     get:
@@ -78,6 +79,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/physical_act_response_body_500'
       x-openapi-router-controller: swagger_server.controllers.phyact_pred_controller
+  /api/v1/physical_act/routine_per_day:
+    post:
+      tags:
+      - phyact_routine
+      summary: create daily physical activity routine
+      description: Creates a physical activity routine for a specific day
+      operationId: api_v1_physical_act_routine_per_day_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/routine_per_day'
+        required: true
+      responses:
+        "201":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/predict_physical_act_response_body_201'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/physical_act_response_body_400'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/physical_act_response_body_500'
+      x-openapi-router-controller: swagger_server.controllers.phyact_routine_controller
 components:
   schemas:
     predict_physical_act:
@@ -235,4 +269,43 @@ components:
         - walking
         - running
         status: get activities successfull
-
+    routine_per_day:
+      type: object
+      required:
+      - ac01
+      - ac02
+      - ac03
+      - no_hours
+      - target_calories
+      - week_no
+      - year_of
+      - day_no
+      - month_of
+      properties:
+        ac01:
+          type: string
+          example: "Walking"
+        ac02:
+          type: string
+          example: "Running"
+        ac03:
+          type: string
+          example: "Jogging"
+        no_hours:
+          type: integer
+          example: 4
+        target_calories:
+          type: integer
+          example: 2000
+        week_no:
+          type: integer
+          example: 1
+        year_of:
+          type: integer
+          example: 2022
+        day_no:
+          type: integer
+          example: 3
+        month_of:
+          type: integer
+          example: 1

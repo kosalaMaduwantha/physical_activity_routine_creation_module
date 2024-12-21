@@ -12,7 +12,7 @@ from app.domain.services.encoder import GENDER, DISCOMFIRT_CHEST, \
 from app.domain.spi.db_spi import DBSPI
 from app.adapters.db.mysql_adapter import MySQLAdapter
 from app.domain.services.Optimizer import Optimizer
-ROOT_DIR = "/home/kosala/git-repositories/physical_activity_routine_creation_module/hexagonal-flask-app/"
+ROOT_DIR = "/home/kosala/git-repos/physical_activity_routine_creation_module/hexagonal-flask-app/"
 
 class PhysicalActImpl(PhysicalActApi):
     
@@ -44,7 +44,7 @@ class PhysicalActImpl(PhysicalActApi):
         activity_list = self._select_activity_pool(data_latest.class_)
         return activity_list
     
-    def create_routine(self, user_id: str, data: RoutineRecData):
+    def create_routine_day(self, user_id: str, data: RoutineRecData):
         pass
     
     def _preprocess_data(self, data: phyActData):
